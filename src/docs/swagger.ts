@@ -28,6 +28,16 @@ const doc = {
         identifier: "fahrur_rzl",
         password: "password",
       },
+      RegisterRequest: {
+        fullName: "Jhon doe",
+        username: "jhondoe",
+        email: "jhondoe@yopmail.com",
+        password: "password",
+        confirmPassword: "password",
+      },
+      ActivationRequest: {
+        code: "abc",
+      },
     },
   },
 };

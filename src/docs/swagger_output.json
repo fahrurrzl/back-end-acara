@@ -31,27 +31,16 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "fullName": {
-                    "example": "any"
-                  },
-                  "username": {
-                    "example": "any"
-                  },
-                  "email": {
-                    "example": "any"
-                  },
-                  "password": {
-                    "example": "any"
-                  },
-                  "confirmPassword": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
               }
             }
           }
@@ -124,6 +113,37 @@
           }
         ]
       }
+    },
+    "/auth/activation": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivationRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivationRequest"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -148,6 +168,46 @@
         },
         "xml": {
           "name": "LoginRequest"
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "example": "Jhon doe"
+          },
+          "username": {
+            "type": "string",
+            "example": "jhondoe"
+          },
+          "email": {
+            "type": "string",
+            "example": "jhondoe@yopmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "password"
+          }
+        },
+        "xml": {
+          "name": "RegisterRequest"
+        }
+      },
+      "ActivationRequest": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "abc"
+          }
+        },
+        "xml": {
+          "name": "ActivationRequest"
         }
       }
     }
