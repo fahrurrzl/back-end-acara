@@ -6,6 +6,7 @@ import { ROLES } from "../utils/constant";
 import mediaMiddleware from "../middlewares/media.middleware";
 import mediaController from "../controllers/media.controller";
 import categoryController from "../controllers/category.controller";
+import regionController from "../controllers/region.controller";
 
 const router = express.Router();
 
@@ -31,6 +32,13 @@ router.delete(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   categoryController.remove
 );
+
+router.get("/region", regionController.getAllProvinces);
+router.get("/region/:id/province", regionController.getProvince);
+router.get("/region/:id/regency", regionController.getRegency);
+router.get("/region/:id/district", regionController.getDistrict);
+router.get("/region/:id/village", regionController.getVillage);
+router.get("/region-search", regionController.findByCity);
 
 router.post(
   "/media/upload-single",
