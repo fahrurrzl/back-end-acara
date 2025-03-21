@@ -17,6 +17,7 @@ export default {
       data,
     });
   },
+
   error(res: Response, error: unknown, message: string) {
     if (error instanceof Yup.ValidationError) {
       return res.status(400).json({
