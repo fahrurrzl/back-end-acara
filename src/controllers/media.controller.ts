@@ -15,8 +15,8 @@ export default {
       );
 
       response.success(res, result, "success upload file");
-    } catch {
-      response.error(res, null, "filed upload a file");
+    } catch (error) {
+      response.error(res, error, "filed upload a file");
     }
   },
   async multiple(req: IReqUser, res: Response) {
