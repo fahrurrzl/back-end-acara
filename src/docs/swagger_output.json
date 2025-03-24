@@ -337,12 +337,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schema/CreateEventRequest"
+                "$ref": "#/components/schemas/CreateEventRequest"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schema/CreateEventRequest"
+                "$ref": "#/components/schemas/CreateEventRequest"
               }
             }
           }
