@@ -1,6 +1,8 @@
 import mongoose, { ObjectId } from "mongoose";
 import * as Yup from "yup";
 
+export const EVENT_MODEL_NAME = "Event";
+
 const Schema = mongoose.Schema;
 
 export const eventDAO = Yup.object({
@@ -17,7 +19,11 @@ export const eventDAO = Yup.object({
   createdBy: Yup.string().required(),
   createdAt: Yup.string(),
   updatedAt: Yup.string(),
-  location: Yup.object().required(),
+  location: Yup.object({
+    region: Yup.number(),
+    coordinates: Yup.array(),
+    address: Yup.string(),
+  }).required(),
 });
 
 export type TEvent = Yup.InferType<typeof eventDAO>;
@@ -84,6 +90,9 @@ const EventSchema = new Schema<Event>(
           type: [Schema.Types.Number],
           default: [0, 0],
         },
+        address: {
+          type: Schema.Types.String,
+        },
       },
     },
   },
@@ -99,5 +108,5 @@ EventSchema.pre("save", function () {
   }
 });
 
-const EventModel = mongoose.model("Event", EventSchema);
+const EventModel = mongoose.model(EVENT_MODEL_NAME, EventSchema);
 export default EventModel;
