@@ -1,4 +1,4 @@
-import { response, Response } from "express";
+import { Response } from "express";
 import mongoose from "mongoose";
 import * as Yup from "yup";
 
@@ -59,6 +59,16 @@ export default {
         message,
       },
       data: error,
+    });
+  },
+
+  notFound(res: Response, message: string = "not found") {
+    res.status(404).json({
+      meta: {
+        status: 404,
+        message,
+      },
+      data: null,
     });
   },
 
