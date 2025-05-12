@@ -59,10 +59,15 @@ export default {
   async findOne(req: IReqUser, res: Response) {
     try {
       const { id } = req.params;
+
+      if (!isValidObjectId(id)) {
+        return response.notFound(res, "filed find one a ticket");
+      }
+
       const result = await TicketModel.findById(id).populate("events");
 
       if (!result) {
-        response.notFound(res, "filed find one a ticket");
+        return response.notFound(res, "filed find one a ticket");
       }
 
       response.success(res, result, "success find one ticket");

@@ -2,7 +2,7 @@ import { Response } from "express";
 import { IPaginationQuery, IReqUser } from "../utils/interfaces";
 import BannerModel, { bannerDAO, TypeBanner } from "../models/banner.model";
 import response from "../utils/response";
-import { FilterQuery } from "mongoose";
+import { FilterQuery, isValidObjectId } from "mongoose";
 
 export default {
   async create(req: IReqUser, res: Response) {
@@ -58,10 +58,15 @@ export default {
   async findOne(req: IReqUser, res: Response) {
     try {
       const { id } = req.params;
+
+      if (!isValidObjectId(id)) {
+        return response.notFound(res, "filed find one a banner");
+      }
+
       const result = await BannerModel.findById(id);
 
       if (!result) {
-        response.notFound(res, "filed find one a banner");
+        return response.notFound(res, "filed find one a banner");
       }
 
       response.success(res, result, "success find a banner");

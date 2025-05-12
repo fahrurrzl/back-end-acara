@@ -2,7 +2,7 @@ import { Response } from "express";
 import { IPaginationQuery, IReqUser } from "../utils/interfaces";
 import response from "../utils/response";
 import EventModel, { eventDAO, TEvent } from "../models/event.model";
-import { FilterQuery } from "mongoose";
+import { FilterQuery, isValidObjectId } from "mongoose";
 
 export default {
   async create(req: IReqUser, res: Response) {
@@ -59,10 +59,14 @@ export default {
     try {
       const { id } = req.params;
 
+      if (!isValidObjectId(id)) {
+        return response.notFound(res, "filed find one a event");
+      }
+
       const result = await EventModel.findById(id);
 
       if (!result) {
-        response.notFound(res, "filed find one a event");
+        return response.notFound(res, "filed find one a event");
       }
 
       response.success(res, result, "success find one event");
