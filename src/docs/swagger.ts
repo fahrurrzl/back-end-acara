@@ -62,6 +62,18 @@ const doc = {
       RemoveMediaRequest: {
         fileUrl: "",
       },
+      CreateBannerRequest: {
+        name: "Banner name",
+        image: "image url",
+        isShow: false,
+      },
+      CreateTicketRequest: {
+        price: 20000,
+        name: "Ticket name",
+        description: "Ticket description",
+        quantity: 100,
+        events: "eventId",
+      },
     },
   },
 };

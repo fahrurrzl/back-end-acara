@@ -1314,6 +1314,54 @@
         "xml": {
           "name": "RemoveMediaRequest"
         }
+      },
+      "CreateBannerRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Banner name"
+          },
+          "image": {
+            "type": "string",
+            "example": "image url"
+          },
+          "isShow": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "xml": {
+          "name": "CreateBannerRequest"
+        }
+      },
+      "CreateTicketRequest": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "number",
+            "example": 20000
+          },
+          "name": {
+            "type": "string",
+            "example": "Ticket name"
+          },
+          "description": {
+            "type": "string",
+            "example": "Ticket description"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 100
+          },
+          "events": {
+            "type": "string",
+            "example": "eventId"
+          }
+        },
+        "xml": {
+          "name": "CreateTicketRequest"
+        }
       }
     }
   }
