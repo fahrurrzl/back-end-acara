@@ -60,6 +60,11 @@ export default {
     try {
       const { id } = req.params;
       const result = await TicketModel.findById(id).populate("events");
+
+      if (!result) {
+        response.notFound(res, "filed find one a ticket");
+      }
+
       response.success(res, result, "success find one ticket");
     } catch (error) {
       response.error(res, error, "failed find one ticket");
