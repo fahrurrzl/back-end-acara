@@ -103,7 +103,9 @@ export default {
         return response.error(res, null, "ticket not found");
       }
 
-      const result = await TicketModel.find({ events: eventId }).exec();
+      const result = await TicketModel.find({ events: eventId })
+        .sort({ createdAt: -1 })
+        .exec();
       response.success(res, result, "success find all ticket by an event");
     } catch (error) {
       response.error(res, error, "failed find all ticket by an event");
