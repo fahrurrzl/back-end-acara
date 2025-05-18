@@ -72,13 +72,17 @@ export default {
     });
   },
 
-  unauthorized(res: Response, message: string = "Unauthorized") {
+  unauthorized(
+    res: Response,
+    data: any = null,
+    message: string = "Unauthorized"
+  ) {
     res.status(403).json({
       meta: {
         status: 403,
         message,
       },
-      data: null,
+      data,
     });
   },
 
