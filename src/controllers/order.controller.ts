@@ -35,6 +35,7 @@ export default {
       });
 
       const result = await OrderModel.create(payload);
+      console.log({ result });
       response.success(res, result, "success create an order");
     } catch (error) {
       response.error(res, error, "failed create an order");

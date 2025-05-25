@@ -2,7 +2,7 @@ import axios from "axios";
 import { MIDTRANS_SERVER_KEY, MIDTRANS_TRANSACTION_URL } from "./env";
 
 export interface Payment {
-  transaction_detail: {
+  transaction_details: {
     order_id: string;
     gross_amount: number;
   };

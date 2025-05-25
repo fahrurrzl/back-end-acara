@@ -108,7 +108,7 @@ OrderSchema.pre("save", async function () {
   const order = this;
   order.orderId = getId();
   order.payment = await payment.createLink({
-    transaction_detail: {
+    transaction_details: {
       gross_amount: order.total,
       order_id: order.orderId,
     },

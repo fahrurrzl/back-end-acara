@@ -42,16 +42,16 @@ export default {
       });
     }
 
-    if ((error as any)?.code) {
-      const _err = error as any;
-      return res.status(500).json({
-        meta: {
-          status: 500,
-          message: _err.errorResponse.errmsg,
-        },
-        data: _err,
-      });
-    }
+    // if ((error as any)?.code) {
+    //   const _err = error as any;
+    //   return res.status(500).json({
+    //     meta: {
+    //       status: 500,
+    //       message: _err.errorResponse.errmsg,
+    //     },
+    //     data: _err,
+    //   });
+    // }
 
     res.status(500).json({
       meta: {
