@@ -10,6 +10,7 @@ import regionController from "../controllers/region.controller";
 import eventController from "../controllers/event.controller";
 import ticketController from "../controllers/ticket.controller";
 import bannerController from "../controllers/banner.controller";
+import orderController from "../controllers/order.controller";
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.post("/auth/activation", authController.activation);
 router.post(
   "/orders",
   [authMiddleware, aclMiddleware([ROLES.ADMIN, ROLES.MEMBER])],
-  ticketController.create
+  orderController.create
 );
 
 router.post(
