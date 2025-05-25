@@ -19,6 +19,12 @@ router.get("/auth/me", authMiddleware, authController.me);
 router.post("/auth/activation", authController.activation);
 
 router.post(
+  "/orders",
+  [authMiddleware, aclMiddleware([ROLES.ADMIN, ROLES.MEMBER])],
+  ticketController.create
+);
+
+router.post(
   "/banners",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   bannerController.create
