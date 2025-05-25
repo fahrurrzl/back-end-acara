@@ -35,7 +35,7 @@ export default {
       });
 
       const result = await OrderModel.create(payload);
-      console.log({ result });
+
       response.success(res, result, "success create an order");
     } catch (error) {
       response.error(res, error, "failed create an order");
@@ -146,6 +146,23 @@ export default {
       response.error(res, error, "failed to complete an order");
     }
   },
+  async remove(req: IReqUser, res: Response) {
+    try {
+      const { orderId } = req.params;
+
+      const result = await OrderModel.findOneAndDelete(
+        { orderId },
+        { new: true }
+      );
+
+      if (!result) return response.notFound(res, "order not found");
+
+      response.success(res, result, "success to remove an order");
+    } catch (error) {
+      response.error(res, error, "failed to remove an order");
+    }
+  },
+
   async pending() {},
   async cancelled() {},
   async findAllByMember() {},
