@@ -163,7 +163,87 @@ export default {
     }
   },
 
-  async pending() {},
-  async cancelled() {},
-  async findAllByMember() {},
+  async pending(req: IReqUser, res: Response) {
+    try {
+      const { orderId } = req.params;
+
+      const order = await OrderModel.findOne({
+        orderId,
+      });
+
+      if (!order) return response.notFound(res, "order not found");
+
+      if (order.status === OrderStatus.COMPLETED)
+        return response.error(res, null, "you have been completed this order");
+
+      if (order.status === OrderStatus.PENDING)
+        return response.error(
+          res,
+          null,
+          "this order currently in payment pending"
+        );
+
+      const result = await OrderModel.findOneAndUpdate(
+        {
+          orderId,
+        },
+        {
+          status: OrderStatus.PENDING,
+        },
+        { new: true }
+      );
+
+      response.success(res, result, "success to pending an order");
+    } catch (error) {
+      response.error(res, error, "failed to pending an order");
+    }
+  },
+  async cancelled(req: IReqUser, res: Response) {
+    try {
+      const { orderId } = req.params;
+
+      const order = await OrderModel.findOne({
+        orderId,
+      });
+
+      if (!order) return response.notFound(res, "order not found");
+
+      if (order.status === OrderStatus.CANCELLED)
+        return response.error(res, null, "this order has been cancelled");
+
+      if (order.status === OrderStatus.COMPLETED)
+        return response.error(res, null, "you have been completed this order");
+
+      const result = await OrderModel.findOneAndUpdate(
+        {
+          orderId,
+        },
+        {
+          status: OrderStatus.CANCELLED,
+        },
+        {
+          new: true,
+        }
+      );
+
+      response.success(res, result, "success to cancelled an order");
+    } catch (error) {
+      response.error(res, error, "failed to cancelled an order");
+    }
+  },
+  async findAllByMember(req: IReqUser, res: Response) {
+    try {
+      const { limit = 8, page = 1 } = req.query;
+
+      const result = await OrderModel.find({ createdBy: req.user?.id })
+        .limit(+limit)
+        .skip((+page - 1) * +limit)
+        .sort({ createdAt: -1 })
+        .lean()
+        .exec();
+      response.success(res, result, "success find all order by member");
+    } catch (error) {
+      response.error(res, error, "failed find all order by member");
+    }
+  },
 };
