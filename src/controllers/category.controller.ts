@@ -3,6 +3,7 @@ import { IPaginationQuery, IReqUser } from "../utils/interfaces";
 import response from "../utils/response";
 import CategoryModel, { categoryDAO } from "../models/category.model";
 import { isValidObjectId } from "mongoose";
+import uploader from "../utils/uploader";
 
 export default {
   async create(req: IReqUser, res: Response) {
@@ -85,6 +86,9 @@ export default {
       const result = await CategoryModel.findByIdAndUpdate(id, req.body, {
         new: true,
       });
+
+      if (!result) return response.notFound(res, "category not found");
+
       response.success(res, result, "success update category");
     } catch (error) {
       response.error(res, error, "failed update category");
@@ -94,6 +98,11 @@ export default {
     try {
       const { id } = req.params;
       const result = await CategoryModel.findByIdAndDelete(id, { new: true });
+
+      if (!result) return response.notFound(res, "category not found");
+
+      await uploader.remove(result.icon);
+
       response.success(res, result, "success remove category");
     } catch (error) {
       response.error(res, error, "failed remove category");
