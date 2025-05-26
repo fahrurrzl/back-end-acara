@@ -5,6 +5,7 @@ import cors from "cors";
 import router from "./routes/api";
 import db from "./utils/database";
 import docs from "./docs/route";
+import errorMiddleware from "./middlewares/error.middleware";
 
 async function init() {
   try {
@@ -27,6 +28,9 @@ async function init() {
 
     app.use("/api", router);
     docs(app);
+
+    app.use(errorMiddleware.serverRoute());
+    app.use(errorMiddleware.serverError());
 
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
