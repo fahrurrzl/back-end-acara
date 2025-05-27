@@ -241,7 +241,20 @@ export default {
         .sort({ createdAt: -1 })
         .lean()
         .exec();
-      response.success(res, result, "success find all order by member");
+
+      const total = await OrderModel.countDocuments({
+        createdBy: req.user?.id,
+      });
+      response.pagination(
+        res,
+        result,
+        {
+          total: total,
+          current: +page,
+          totalPage: Math.ceil(total / +limit),
+        },
+        "success find all order by member"
+      );
     } catch (error) {
       response.error(res, error, "failed find all order by member");
     }
